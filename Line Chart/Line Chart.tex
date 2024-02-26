@@ -1,0 +1,153 @@
+\documentclass[12pt a4paper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[left=2mm, right=2mm, top=2mm, bottom=2mm, paper=a4paper]{geometry} % For page margins
+\usepackage{tikz} % For border
+\usetikzlibrary{shapes.geometric, positioning, calc}
+\usepackage{ragged2e} % For centering
+\usepackage{setspace} % For spacing between the lines
+\usepackage{pifont} % For Times font and more bulletin options
+\usepackage{colortbl}   % For colors
+\usepackage{pgfplots}
+
+\newtoks \coords    % Tokenizing the coordinates of the lines
+
+\renewcommand{\familydefault}{\rmdefault}
+
+
+
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+
+\vspace{1cm}
+
+\newcommand{\linegraph}[9]{
+
+    \def \dimensions{#1}     % Height and Width in cm
+
+    \pgfmathsetmacro{\graphHeight}{{\dimensions}[0]}     % Height
+    \pgfmathsetmacro{\graphWidth}{{\dimensions}[1]}      % Width
+
+
+    \def \minmaxvalues{#2}    % Y-axis limits
+
+    \pgfmathsetmacro{\ymin}{{\minmaxvalues}[0]}     % Y-axis minimum value
+    \pgfmathsetmacro{\ymax}{{\minmaxvalues}[1]}     % Y-axis maximum value
+
+
+    \def \linecoords{#8}    % No of Graph lines, No of plots and Coordinates of the graph
+
+    \pgfmathsetmacro{\xmaxSep}{{\linecoords}[1]}     % X-axis separation
+
+    \pgfmathsetmacro{\numOfLines}{{\linecoords}[0]}     % No of Graph lines
+    \pgfmathsetmacro{\noOfCoords}{{\linecoords}[1]}     % No of plots
+
+
+    % Custom Colors declaration
+    \definecolor{rgbColor1}{RGB}{0,255,0} % Green Color
+    \definecolor{rgbColor2}{RGB}{70,189,199} % Blue Color
+    \definecolor{rgbColor3}{RGB}{255,0,255} % Magenta
+    
+    \begin{tikzpicture}
+    
+    \begin{axis}[
+       title={#9},
+       height=\graphHeight cm,
+       width=\graphWidth cm,
+       xmin=0,
+       xmax=\xmaxSep+1,
+       ymin=\ymin,  % Y-axis limits
+       ymax=\ymax,  % Y-axis limits
+       xtick=data,
+       xticklabels={#3},
+       ytick={#4},
+       xlabel={#5},
+       ylabel={#6},
+       ymajorgrids=true,  %grid line visibility
+       xmajorgrids=true,
+       grid style=dashed,
+       major x tick style = transparent,
+       nodes near coords,
+       nodes near coords style={color=black},
+       axis x line*=bottom,
+       axis y line*=left,
+       draw = white,  % axis line color
+       enlarge y limits=0.1,
+       enlarge x limits=-0.2,
+       x tick label style={
+            font=\footnotesize,
+            rotate=45, 
+            anchor=east
+        },
+       legend style = {
+            at={(1.2,0.45)},
+            draw=none,
+        },
+    ]
+
+    \foreach \i in {1,...,\numOfLines}{     % Loop for Lines
+        \coords{}
+        
+        \foreach \x in {0,...,\inteval{\noOfCoords-1}}{     % Loop for plots
+            \pgfmathsetmacro{\eachpoint}{{\linecoords}[\i+1][\x]}
+            \global\coords\expandafter{\expanded{\the\coords(\x+1,\eachpoint)}}
+            % Declare the \coords as global and make it as tokens
+        }
+        \edef \plotting{ \noexpand
+            \addplot[ 
+                color=rgbColor\i,
+                mark=*, 
+                line width=2pt, 
+                % every node near coord/.append style={yshift=-14.5}  %shifting the nodes
+            ] coordinates {
+                \the\coords     % Expand the tokens as a coordinates
+            }; \noexpand
+        }
+        \plotting
+
+        \renewcommand{\coords}{{}}  % Clear the \coords data for storing the other line coords
+    }
+    
+    \legend{#7}
+    
+    \end{axis}
+    
+\end{tikzpicture}
+}
+
+
+% #1 - Height and Width of the graph in (cm)
+% #2 - Y axis minimnum and maximum values
+% #3 - X axis tick labels with separations
+% #4 - Y axis tick labels with separations
+% #5 - X-axis Label
+% #6 - Y-axis Label
+% #7 - Graph legends
+% #8 - No of Graph lines, No of plots and Coordinates of the graph
+% Array 0 - No of Graph lines
+% Array 1 - No of plots
+% Array 2 - Coordinates of the graph upto
+% Array n - Coordinates of the graph
+% #9 - Title of the graph
+
+
+
+
+\linegraph
+    {10,13}
+    {60,90}
+    {Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct}
+    {60,70,80,90}
+    {}
+    {Test Consumption in \%}
+    {Math,Science}
+    {
+        {2},
+        {10},
+        {86,80,77,77,70,75,84,82,68,87},
+        {81,84,80,90,88,82,76,74,64,69},
+    }
+    {}
+
+
+\end{document}

@@ -1,0 +1,239 @@
+\documentclass[12pt a4paper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{ulem} %underline a text
+\usepackage{draftwatermark} %watermark
+\usepackage{soul} %for highlight
+\usepackage{tikz} % For border
+\usepackage[left=25mm, right=25mm, top=25mm, bottom=25mm, paper=a4paper]{geometry} % For page margins
+\usetikzlibrary{shapes.geometric, positioning, calc}
+\usepackage{setspace} % For spacing between the lines
+\usepackage{subfigure} % Single line figures
+\usepackage{wrapfig} % Multi figs
+\usepackage{subfig}
+\usepackage{enumitem}  % Ordered points
+\usepackage{pifont}  % For Times Font
+\usepackage{array}  % Table cell spacing
+% \usepackage[table]{xcolor}
+\usepackage{amsmath}  % Math mode
+\usepackage{multirow}  % Column and row merging
+\usepackage{fancyhdr}  % For header and footer
+\usepackage{colortbl}  % Table cell colouring
+\usepackage{ragged2e} % For centering
+
+\renewcommand{\familydefault}{\rmdefault}
+\spacing{2}
+
+
+\SetWatermarkAngle{39}
+\SetWatermarkScale{4}
+\SetWatermarkText{Learn Basics}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{ \fancyplain{} \Large \textcolor{gray}{3D Shapes}}
+
+\renewcommand{\headrulewidth}{0pt}
+
+
+
+\begin{document}
+
+\begin{center}
+\begin{Huge}
+\textbf{\uline{Task 1}}
+\end{Huge}
+\thispagestyle{empty}
+\end{center}
+
+
+\newpage
+
+\begin{tikzpicture}
+[remember picture, overlay] \draw[line width=1pt]
+($(current page.north west) + (0.6in, -0.6in)$) rectangle 
+($(current page.south east) + (-0.6in, 0.6in)$);
+\end{tikzpicture}
+    
+\begin{center}
+\vspace*{\stretch{1}}
+\begin{Huge}
+\sethlcolor{yellow}
+\hl{\textbf{3D Shapes}}
+\end{Huge}
+\vspace*{\stretch{1}}
+\end{center}
+
+\thispagestyle{empty}
+
+\newpage
+\clearpage
+
+
+\begin{Huge}
+\noindent
+\textbf{3D Shapes} \\
+\end{Huge}
+
+\begin{huge}
+\noindent \LARGE
+3D shapes are solids that consist of \textbf{3 dimensions - length, breadth (width), and height}. 3D in the word 3D shapes means \textcolor{blue}{three-dimensional}. Every 3D geometric shape occupies some space based on its dimensions and we can see many 3D shapes all around us in our day-to-day life. Some examples of 3D shapes are \textbf{\textcolor{red}{cube, cuboid, cone, and cylinder}.}
+\end{huge} \\
+
+\begin{huge}
+\noindent
+\Large\textbf{Real-Life Examples of 3D Geometric Shapes}\\
+\end{huge} \\
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}
+    \centering
+    \includegraphics[width=3cm]{football.jpg}
+    \end{subfigure}
+    \hspace{5em}
+    \begin{subfigure}
+    \centering
+    \includegraphics[width=3cm]{rubics.png}
+    \label{Figs}
+    \end{subfigure}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}
+    \centering
+    \includegraphics[width=2cm]{bucket.png}
+    \end{subfigure}
+    \hspace{5em}
+    \begin{subfigure}
+    \centering
+    \includegraphics[width=3cm]{book.png}
+    \label{Figs1}
+    \end{subfigure}
+\end{figure}
+
+
+\begin{huge}
+\noindent
+\Large\textbf{\uline{Types of 3D Shapes}}\\
+\end{huge}
+
+\begin{huge}
+\noindent \LARGE
+There are various types of 3D shapes that have different bases, volumes, and surface areas. \\ Let us discuss each one of them.
+\end{huge} \\
+
+\newpage
+
+\noindent
+\LARGE \textbf{Shapes}
+
+\spacing{1.5}
+\begin{enumerate}[label=\arabic*.]
+    \item It is shaped like a ball and is perfectly symmetrical.
+    \item It has a \textcolor{blue}{radius}, \textcolor{blue}{diameter}, circumference, volume, and surface area.
+    \item Every point on the sphere is at an equal distance from the center.
+    \item It has one face, no edges, and no vertices.
+    \item It is not a polyhedron since it does not have flat faces.
+\end{enumerate}
+
+\noindent
+\LARGE \textbf{Cylinder}
+\begin{enumerate}[label=\alph*.]
+    \item It has one curved face.
+    \item The shape stays the same from the base to the top.
+    \item It is a three-dimensional object with two identical ends that are either circular or \textcolor{blue}{oval}.
+    \item A cylinder in which both circular bases lie on the same line is called a right cylinder. A cylinder in which one base is placed away from another is called an oblique cylinder.
+\end{enumerate}
+
+
+\newpage
+
+\noindent
+\LARGE \textbf{Cone}
+\begin{itemize}
+    \item[\ding{110}] A cone has a circular or oval base with an apex (vertex).
+    \item[\ding{110}] A cone is a rotated triangle.
+    \item[\ding{110}] Based on how the apex is aligned to the center of the base, a right cone or an oblique cone is formed.
+\end{itemize}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Cone math.png}
+    \caption{math}
+    \label{mathe.png}
+\end{figure}
+
+\newpage
+
+\spacing{1.5}
+\begin{huge}
+\noindent
+\LARGE \textbf{Properties of 3D Shapes} \\
+Every 3D shape has some properties which help us to 
+identify them easily. Let us discuss each of them briefly. \\
+
+\noindent
+
+\centering
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|>{\centering\arraybackslash} m{3cm} | p{12.1cm} |}
+    \hline
+    \rowcolor{yellow}\textbf{3D Shapes} & \Centering{\textbf{Properties}} \\
+    \hline
+        \multirow{3}{*}{Cylinder} & 
+        i) It has a flat base and a flat top. \\
+        & ii) The bases are always congruent and parallel. \\ 
+        & iii) It has one curved side. \\
+    \hline
+        \multirow{3}{*}{Cone}&
+        iv) It has a flat base. \\ 
+        & v) It has one curved side and one-pointed vertex at the top or bottom known as the apex. \\
+    \hline
+        \multirow{3}{*}{Cube}&
+        vi) It has six faces in the shape of a square. \\
+        & vii) The sides are of equal lengths. \\
+        & viii) 12 diagonals can be drawn on a cube. \\
+    \hline
+\end{tabular}
+
+
+\end{huge}
+
+\newpage
+
+
+\noindent
+\LARGE \textbf{3D Shapes Formulas} \\
+As discussed, all 3 Dimensional shapes have a surface area and volume. The following table shows different 3D shapes and their formulas. \\
+
+\spacing{1.4}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|>{\centering\arraybackslash} m{3cm} |>{\centering\arraybackslash} p{3.5cm} |>{\centering\arraybackslash} p{7.5cm} | }
+    \hline
+    \rowcolor{yellow}
+    \textbf{3D Shape} & 
+    \multicolumn{2}{|c|}{\textbf{Formulas}} 
+    \cr
+    \hline
+    \vspace{0.5cm} \multirow{3}{*}{Sphere} & Diameter  & $2 \times r$; \newline (where 'r' is the radius) \\
+    \cline{2-3}
+           & Surface Area & $4\pi r^2$ \\
+    \cline{2-3} 
+           & Volume & $\frac{4}{3}\pi r^3$ \\
+    \hline
+    \vspace{1.1cm} \multirow{2}{*}{Cylinder} & Total Surface Area & $2\pi (r+h+r)$; \newline
+              (where 'r' is the radius and 'h' is the height of the cylinder) \\ 
+    \cline{2-3}
+              & Volume & $\pi r^2 h$ \\
+    \hline
+    \vspace{1cm} \multirow{2}{*}{Cone} & Curved Surface Area & $\pi rl$; \newline (where 'l' is the slant height and  l = $\sqrt{(h^2 + r^2)}$) \\ 
+    \cline{2-3}
+              & Volume & $\frac{\pi}{3}r^2 h$ \\
+    \hline
+\end{tabular}
+
+
+
+\end{document}

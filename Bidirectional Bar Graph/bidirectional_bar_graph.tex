@@ -1,5 +1,5 @@
 \documentclass[11pt, a4paper]{article}
-\usepackage[top=2mm,bottom=2mm,left=2mm,right=2mm]{geometry}
+ \usepackage[top=2mm,bottom=2mm,left=2mm,right=2mm]{geometry}
 \usepackage{tikz}
 \usetikzlibrary{patterns}
 \usepackage{pgfplots}
@@ -14,21 +14,27 @@
 
 %   #1 -- Labels
 %   #2 -- Bar Width in cm
-%   #3 -- Bar Labels
-%   #4 -- No.of Plots
-%   #5 -- Coordinate values
-%   #6 -- Scale value
+%   #3 -- Scale value in cm
+%   #4 -- distance of the node value from the coordinates in cm
+%   #5 -- Bar Labels
+%   #6 -- No.of Plots
+%   #7 -- Coordinate values
 
-\newcommand{\bidirectionalBarGraph}[6]{
+
+\newcommand{\bidirectionalBarGraph}[7]{
     \def \labeltext{#1}
     \pgfmathsetmacro{\leftlabel}{{\labeltext}[0]}     
     \pgfmathsetmacro{\rightlabel}{{\labeltext}[1]}
 
-    \def \labelbars{#3}
+    \def \labelbars{#5}
+    
+    \def \nodevaluedistance{#4}
 
-    \def \numofplots{#4}
+    \def \numofplots{#6}
 
-    \def \barcoords{#5}
+    \def \barcoords{#7}
+
+    
 
     % ----------------------------------------------
             % Defining custom colors 
@@ -74,12 +80,14 @@
             fill=none, 
             align=center
         },
-        scale=#6
+        scale=#3
     ]
     
 
     \node at (-2,\numofplots+0.2)[labels]{\leftlabel};
     \node at (2,\numofplots+0.2)[labels]{\rightlabel};
+
+    \draw[<->, color=arrowColor](0,-1) -- (0,\numofplots);
 
 
     \foreach \i in {1,...,2}{
@@ -93,13 +101,13 @@
                 \global\coords\expandafter{\expanded{\the\coords(-\reducedpoint,\j)}}
 
                 \ifnum \eachpoint > 0
-                    \node at (-\reducedpoint-0.3,\j)[coordlabels]{\eachpoint\%};
+                    \node at (-\reducedpoint-\nodevaluedistance,\j)[coordlabels]{\eachpoint\%};
                 \fi
             \else 
                 \global\coords\expandafter{\expanded{\the\coords(\reducedpoint,\j)}}
 
                 \ifnum \eachpoint > 0
-                    \node at (\reducedpoint+0.3,\j)[coordlabels]{\eachpoint\%};
+                    \node at (\reducedpoint+\nodevaluedistance,\j)[coordlabels]{\eachpoint\%};
                 \fi
             \fi
         }
@@ -119,27 +127,26 @@
         \pgfmathsetmacro \currentlabel{{\labelbars}[\x]}
         \node at (0,\x)[barlabels]{\currentlabel};
     }
-    
-    \draw[<->, color=arrowColor](0,-1) -- (0,\numofplots); 
 
     \end{tikzpicture}
 }
 
 
 \begin{document}
-
+\section*{\centering Class 6 B}
 \vspace*{\stretch{1}}
 \begin{center} 
 
     \bidirectionalBarGraph{{"Math"},{"Science"}}
-        {0.6}
+        {0.6}        
+        {0.9}
+        {0.3}
         {{"Dhivyarani M"},{"Hemasri L"},{"Harilochana R"},{"Hashini C"},{"Iniya I"},{"Janitha J"},{"Shivani S"},{"Srivarshini B"},{"Vinisha G"},{"Anil Prasath T"},{"Arunkumar S"},{"Ashwanth K"},{"Baranidharan B"},{"Darsaath M"},{"Darshan M"},{"Dhiwahar R"},{"Ezhil Murugan S"},{"Hakash M"},{"Jeyanth M"},{"Kawshik Narayanan R"},{"Krish G"},{"Kirthish P"},{"Mokesh A G"},{"Mugundhan R"},{"Sailesh M"},{"Siddharth D"},{"Tharun A"},{"Vijay J"},{"Yuvanesh A"},{"Yuvaraj R"}}
         {30}
         {
             {35,71,31,48,0,38,43,80,68,23,76,51,26,30,35,40,43,53,50,63,80,28,46,50,76,55,15,25,48,30},
             {28,70,0,45,61,70,35,80,56,25,0,50,30,35,36,36,40,66,36,66,86,18,61,36,90,88,30,41,55,30}
         }
-        {0.9}
         
 \end{center}
 \vspace*{\stretch{1}}

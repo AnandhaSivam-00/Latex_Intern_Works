@@ -1,0 +1,147 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[top=2mm,bottom=2mm,left=2mm,right=2mm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+\usepackage{ifthen}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+
+\pgfplotsset{width=10cm,compat=1.18}
+
+\newtoks \coords
+
+
+%   #1 -- Labels
+%   #2 -- Bar Width in cm
+%   #3 -- Bar Labels
+%   #4 -- No.of Plots
+%   #5 -- Coordinate values
+%   #6 -- Scale value
+
+\newcommand{\bidirectionalBarGraph}[6]{
+    \def \labeltext{#1}
+    \pgfmathsetmacro{\leftlabel}{{\labeltext}[0]}     
+    \pgfmathsetmacro{\rightlabel}{{\labeltext}[1]}
+
+    \def \labelbars{#3}
+
+    \def \numofplots{#4}
+
+    \def \barcoords{#5}
+
+    % ----------------------------------------------
+            % Defining custom colors 
+
+        \colorlet{arrowColor}{gray!70}
+        \colorlet{coordtextColor}{gray}
+        \colorlet{leftbarsColor}{magenta!50}
+        \colorlet{rightbarsColor}{blue!50}
+    % ----------------------------------------------
+
+    \centering
+    \begin{tikzpicture}[
+        labels/.style={
+            text=black,
+            font=\tiny,
+            fill=none
+        },
+        barstyle1/.style={
+            pattern=crosshatch dots, 
+            pattern color=leftbarsColor, 
+            draw=leftbarsColor
+        },
+        barstyle2/.style={
+            pattern=crosshatch dots, 
+            pattern color=rightbarsColor, 
+            draw=rightbarsColor
+        },
+        plotting/.style={
+            xbar, 
+            bar width=#2 cm
+        },
+        barlabels/.style={
+            text=black, 
+            font=\tiny,
+            fill=white, 
+            fill opacity=0.4,
+            text opacity=1,
+            align=center
+        },
+        coordlabels/.style={
+            text=coordtextColor, 
+            font=\tiny, 
+            fill=none, 
+            align=center
+        },
+        scale=#6
+    ]
+    
+
+    \node at (-2,\numofplots+0.2)[labels]{\leftlabel};
+    \node at (2,\numofplots+0.2)[labels]{\rightlabel};
+
+
+    \foreach \i in {1,...,2}{
+        \coords{}
+        
+        \foreach \j in {0,...,\inteval{\numofplots-1}}{
+            \pgfmathsetmacro{\eachpoint}{{\barcoords}[\i-1][\j]}
+            \pgfmathsetmacro{\reducedpoint}{\eachpoint*0.1}
+            
+            \ifnum \i = 1
+                \global\coords\expandafter{\expanded{\the\coords(-\reducedpoint,\j)}}
+
+                \ifnum \eachpoint > 0
+                    \node at (-\reducedpoint-0.3,\j)[coordlabels]{\eachpoint\%};
+                \fi
+            \else 
+                \global\coords\expandafter{\expanded{\the\coords(\reducedpoint,\j)}}
+
+                \ifnum \eachpoint > 0
+                    \node at (\reducedpoint+0.3,\j)[coordlabels]{\eachpoint\%};
+                \fi
+            \fi
+        }
+
+        \edef \visual{ \noexpand
+            \draw[barstyle\i] plot[plotting] coordinates {
+                \the\coords     % Expand the tokens as a coordinates
+            }; \noexpand
+        }
+        
+        \visual
+        
+        \renewcommand{\coords}{{}}
+    }
+    
+    \foreach \x in {0,...,\inteval{\numofplots-1}}{
+        \pgfmathsetmacro \currentlabel{{\labelbars}[\x]}
+        \node at (0,\x)[barlabels]{\currentlabel};
+    }
+    
+    \draw[<->, color=arrowColor](0,-1) -- (0,\numofplots); 
+
+    \end{tikzpicture}
+}
+
+
+\begin{document}
+
+\vspace*{\stretch{1}}
+\begin{center} 
+
+    \bidirectionalBarGraph{{"Math"},{"Science"}}
+        {0.6}
+        {{"Dhivyarani M"},{"Hemasri L"},{"Harilochana R"},{"Hashini C"},{"Iniya I"},{"Janitha J"},{"Shivani S"},{"Srivarshini B"},{"Vinisha G"},{"Anil Prasath T"},{"Arunkumar S"},{"Ashwanth K"},{"Baranidharan B"},{"Darsaath M"},{"Darshan M"},{"Dhiwahar R"},{"Ezhil Murugan S"},{"Hakash M"},{"Jeyanth M"},{"Kawshik Narayanan R"},{"Krish G"},{"Kirthish P"},{"Mokesh A G"},{"Mugundhan R"},{"Sailesh M"},{"Siddharth D"},{"Tharun A"},{"Vijay J"},{"Yuvanesh A"},{"Yuvaraj R"}}
+        {30}
+        {
+            {35,71,31,48,0,38,43,80,68,23,76,51,26,30,35,40,43,53,50,63,80,28,46,50,76,55,15,25,48,30},
+            {28,70,0,45,61,70,35,80,56,25,0,50,30,35,36,36,40,66,36,66,86,18,61,36,90,88,30,41,55,30}
+        }
+        {0.9}
+        
+\end{center}
+\vspace*{\stretch{1}}
+
+\end{document}

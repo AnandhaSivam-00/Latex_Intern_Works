@@ -1,0 +1,209 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[top=2mm,bottom=2mm,left=2mm,right=2mm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+\usepackage{ifthen}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+
+\pgfplotsset{width=10cm,compat=1.18}
+
+\newtoks \coords    % Tokenization for coordinate values
+\newtoks \basecoords    % Tokenization for the base coordinate values
+
+
+%   #1 -- Labels
+%   #2 -- Bar Width in cm
+%   #3 -- Scale value in cm
+%   #4 -- distance of the node value from the coordinates in cm
+%   #5 -- Bar Labels
+%   #6 -- No.of Plots
+%   #7 -- Coordinate values
+
+
+\newcommand{\bidirectionalBarGraph}[7]{
+    \def \labeltext{#1}
+    \pgfmathsetmacro{\leftlabel}{{\labeltext}[0]}     
+    \pgfmathsetmacro{\rightlabel}{{\labeltext}[1]}
+
+    \def \labelbars{#5}
+    
+    \def \nodevaluedistance{#4}
+
+    \def \numofplots{#6}
+
+    \def \barcoords{#7}
+
+    
+
+    % ----------------------------------------------
+            % Defining custom colors 
+
+        \colorlet{arrowColor}{gray!70}
+        \colorlet{coordtextColor}{black!70}
+        \colorlet{leftbarsColor}{orange!47}
+        \colorlet{rightbarsColor}{blue!50}
+        \colorlet{trendline}{red!45}
+    % ----------------------------------------------
+
+    \centering
+    \begin{tikzpicture}[
+        %   Declaring label style
+        labels/.style={
+            text=black,
+            font=\tiny,
+            fill=none
+        },
+        %   Declaring leftside base bar style
+        basebarstyle1/.style={
+            pattern=north east lines, 
+            pattern color=leftbarsColor,
+            draw=leftbarsColor,
+            opacity=0.6
+        },
+        %   Declaring rightside base bar style
+        basebarstyle2/.style={
+            pattern=north west lines, 
+            pattern color=rightbarsColor,
+            draw=rightbarsColor,
+            opacity=0.6
+        },
+        %   Declaring the leftside bar styles with a fill color
+        barstyle1/.style={ 
+            fill=leftbarsColor,
+            draw=leftbarsColor
+        },
+        %   Declaring the rightside bar styles with a fill color
+        barstyle2/.style={
+            fill=rightbarsColor,
+            draw=rightbarsColor
+        },
+        %   Setting the properties of the bar
+        plotting/.style={
+            xbar, 
+            bar width=#2 cm
+        },
+        %   Defining the style of bar labels
+        barlabels/.style={
+            text=black, 
+            font=\tiny,
+            fill=none,
+            text opacity=1,
+            align=center
+        },
+        % Defining the style of the coordinate(node) labels
+        coordlabels/.style={
+            text=coordtextColor, 
+            font=\tiny, 
+            fill=none, 
+            text opacity=1,
+            align=center
+        },
+        scale=#3    %   To adjust the size of the picture
+    ]
+    
+    % Defining the left bar and right bar labels
+    \node at (-2,\numofplots+0.2)[labels]{\large \leftlabel};
+    \node at (2,\numofplots+0.2)[labels]{\large \rightlabel};
+
+
+    \foreach \i in {1,...,2}{
+        \coords{}   % Initial declaration of the coordinate tokens
+        \basecoords{}   % Initial declaration of the base coordinate tokens
+        
+        \foreach \j in {0,...,\inteval{\numofplots-1}}{
+            \pgfmathsetmacro{\eachpoint}{{\barcoords}[\i-1][\j]}    % Getting the coordinates
+            \pgfmathsetmacro{\reducedpoint}{\eachpoint*0.1} % Reduce the coordinates to its 1/10th of this value
+            
+            \ifnum \i = 1   % For left side
+                \global\coords\expandafter{\expanded{\the\coords(-\reducedpoint,\j)}}
+                \global\basecoords\expandafter{\expanded{\the\basecoords(-10,\j)}}
+            \else   % For right side
+                \global\coords\expandafter{\expanded{\the\coords(\reducedpoint,\j)}}
+                \global\basecoords\expandafter{\expanded{\the\basecoords(10,\j)}}
+            \fi
+        }
+
+        %   Setting the bars with its individual properties to the single command
+        \edef \visual{ \noexpand
+            \draw[behind path, barstyle\i] plot[plotting] coordinates {
+                \the\coords     % Expand the tokens as a coordinates
+            }; \noexpand  
+            \draw[basebarstyle\i] plot[plotting] coordinates {
+                \the\basecoords
+            }; \noexpand
+        }
+        
+        \visual % To display the plotted graph
+
+        %   Resetting the tokens to its original values
+        \renewcommand{\basecoords}{{}}
+        \renewcommand{\coords}{{}}
+        
+    }
+
+    % Drawing center axis
+    \draw[<->, color=arrowColor](0,-1) -- (0,\numofplots);
+
+    %  Trend Lines
+    \draw[thick, dashed, color=trendline](4,-0.8) -- (4,\numofplots-0.2);
+    \draw[thick, dashed, color=trendline](-4,-0.8) -- (-4,\numofplots-0.2);
+
+     % For setting the coordinate values and for solving the overlapping of the coordinate values and the basebar.
+    \foreach \x in {1,...,2}{
+        \foreach \y in {0,...,\inteval{\numofplots-1}}{
+            \pgfmathsetmacro{\eachpoint}{{\barcoords}[\x-1][\y]}    % Getting the coordinates
+            \pgfmathsetmacro{\reducedpoint}{\eachpoint*0.1} % Reduce the coordinates to its 1/10th of this value
+
+            \ifnum \x = 1
+                 %   Adjusting the position of the coordinate labels
+                \ifnum \eachpoint > 0   
+                    \ifnum \eachpoint < 95
+                        \node at (-\reducedpoint-\nodevaluedistance,\y)[coordlabels]{\eachpoint\%};
+                    \else 
+                        \node at (-\reducedpoint+\nodevaluedistance,\y)[coordlabels]{\eachpoint\%};
+                    \fi
+                \fi
+            \else 
+                %   Adjusting the position of the coordinate labels
+                \ifnum \eachpoint > 0   
+                    \ifnum \eachpoint < 95
+                        \node at (\reducedpoint+\nodevaluedistance,\y)[coordlabels]{\eachpoint\%};
+                    \else 
+                        \node at (\reducedpoint-\nodevaluedistance,\y)[coordlabels]{\eachpoint\%};
+                    \fi
+                \fi
+            \fi
+        }
+    }
+    
+    %   Adding bar labels
+    \foreach \x in {0,...,\inteval{\numofplots-1}}{
+        \pgfmathsetmacro \currentlabel{{\labelbars}[\x]}
+        \node at (0,\x)[barlabels]{\currentlabel};
+    }
+
+    \end{tikzpicture}
+}
+
+
+\begin{document}
+\vspace*{\stretch{1}}
+\begin{center} 
+
+    \bidirectionalBarGraph{{"Math"},{"Science"}}
+        {0.6}        
+        {0.9}
+        {0.3}
+        {{"Dhivyarani M"},{"Hemasri L"},{"Harilochana R"},{"Hashini C"},{"Iniya I"},{"Janitha J"},{"Shivani S"},{"Srivarshini B"},{"Vinisha G"},{"Anil Prasath T"},{"Arunkumar S"},{"Ashwanth K"},{"Baranidharan B"},{"Darsaath M"},{"Darshan M"},{"Dhiwahar R"},{"Ezhil Murugan S"},{"Hakash M"},{"Jeyanth M"},{"Kawshik Narayanan R"},{"Krish G"},{"Kirthish P"},{"Mokesh A G"},{"Mugundhan R"},{"Sailesh M"},{"Siddharth D"},{"Tharun A"},{"Vijay J"},{"Yuvanesh A"},{"Yuvaraj R"}}
+        {30}
+        {
+            {35,71,31,48,0,38,43,80,68,23,76,51,26,30,35,40,43,53,50,63,80,28,46,50,76,55,15,25,48,30},
+            {28,70,0,45,61,70,35,80,56,25,0,50,30,35,36,36,40,66,36,66,86,18,61,36,90,88,30,41,55,30}
+        }
+        
+\end{center}
+\vspace*{\stretch{1}}
+
+\end{document}

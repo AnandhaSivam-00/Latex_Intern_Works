@@ -1,0 +1,385 @@
+\documentclass[11pt,a4paper]{article}%
+\usepackage[T1]{fontenc}%
+\usepackage[utf8]{inputenc}%
+\usepackage{lmodern}%
+\usepackage{textcomp}%
+\usepackage{lastpage}%
+\usepackage{geometry}%
+\geometry{top=1.8cm,bottom=3.3cm,left=0.5cm,right=0.5cm}
+\usepackage[ddmmyyyy]{datetime}%
+\usepackage[none]{hyphenat}%
+\usepackage{draftwatermark}%
+\usepackage{color}%
+\usepackage{ragged2e}%
+\usepackage{array}%
+\usepackage{longtable}%
+\usepackage{fancyhdr}%
+\usepackage{float}%
+\usepackage[hidelinks]{hyperref}%
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.18} 
+
+
+\SetWatermarkLightness{ 0.95 }
+\SetWatermarkText{Little Thinker}
+\SetWatermarkScale{ 0.7 }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%               Setting School Name
+
+\def \schoolname{Little Flower School}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%              Defining the chapter name globally for labels
+
+\newcommand{\setchaptername}[1]{
+   \global \def \chaptername{#1} % Initially Empty
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\firsthdr}[1]{
+        \begin{center}
+            {
+            \LARGE
+            \textbf{\textit{Little Thinker - Annual Chapter Planner}}\\
+            \rule{300pt}{1pt}}\\
+            \large\textbf{#1}
+            \end{center}
+}%
+\newcommand{\name}[3]{
+        \vspace{4cm}
+        \begin{table}[H]
+    \centering
+    \Large
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{ll}
+       \textbf{Teacher Name} & : #1 \\
+     \textbf{Subject} & : #2\\
+     \textbf{Class} & : #3\\
+    \end{tabular}
+    \end{table}
+}%
+
+\newcommand{\onehdr}[1]{
+    \noindent 
+    \RaggedRight 
+    \large 
+    \textbf{#1}
+}%
+
+\newcommand{\onehdrc}[1]{
+    \centering 
+    \large 
+    \setchaptername{#1}
+    \textbf{#1} \label{\chaptername - Start}
+    \smallskip 
+}%
+
+\newcommand{\rightaligh}[1]{
+    \RaggedLeft 
+    \large 
+    \textbf{#1} 
+    \hspace{2cm} 
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%           For First Page
+
+\fancypagestyle{firstpage}{
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhead{ }
+    \fancyfoot{ }
+    \fancyhead[L]{
+        \includegraphics[width=3.2cm]{img/logo.png}\\
+        www.learnbasics.fun
+        \vspace{-0.8cm}
+    }
+    \fancyhead[C]{
+        \begin{tabular}{@{}c}%
+            \huge{\textbf{Annual Chapter Planner}} \\ 
+            \rule{300pt}{1pt}\\
+            \Large{\schoolname}%
+        \end{tabular}% 
+    }%
+    \fancyhead[R]{%
+    
+    }%
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%               For Remaining Pages
+
+\newcommand{\pagehead}[2]{
+    \fancypagestyle{bodypage#1}{%
+        \renewcommand{\headrulewidth}{0pt}%
+        \renewcommand{\footrulewidth}{0pt}%
+        \fancyhead{%
+        }%
+        \fancyfoot{%
+        }%
+        \fancyfoot[L]{%
+            \vspace{0cm}%
+            Little Thinker%
+        }%
+        \fancyfoot[C]{%
+            \vspace{0cm}%
+            Class #1 - #2 - Page \thepage%
+        }%
+        \fancyfoot[R]{%
+            \vspace{0cm}%
+            \schoolname %
+        }%
+        \fancyhead[L]{%
+            \includegraphics[width=3.2cm]{img/logo.png}\\
+            www.learnbasics.fun 
+            \vspace*{0.2cm}
+        }%
+        \fancyhead[C]{%
+            \Centering{%
+                \begin{Large}%
+                \textbf{Little Thinker - \schoolname} \\ \medskip
+                \textbf{Annual Chapter Planner (2023 - 2024)} \\ \medskip
+                \textbf{Class #1 - #2} %
+                \end{Large}% 
+            }%
+            \vspace*{0.2cm}
+        }%
+        \renewcommand{\footrulewidth}{1pt}%
+        \renewcommand{\headrulewidth}{1pt}%
+    }%
+}
+
+\pagehead{6}{Math}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%                   Index Page Table
+
+\newcommand{\indexpagetable}[2]{
+    \newtoks \rows{}
+    \def \mycount{#1}
+    \def \chapternames{#2}
+
+    \foreach \i in {1,...,\mycount} {
+        \pgfmathsetmacro \chapternaming{{\chapternames}[\i-1]}
+        \global\rows\expandafter{\expanded{\the\rows \i \expandafter &  \chapternaming  \expandafter & \pageref{\i.\chapternaming - Start} - \pageref{\i.\chapternaming - End} \\} \hline}
+    }
+
+    \begin{center}
+    \vspace*{\stretch{1}}
+    
+    \begin{table}[H]
+        \centering
+        \renewcommand{\arraystretch}{2}
+        \begin{tabular}{
+        |>{\centering\arraybackslash}p{2.2cm}
+        |>{\raggedright\arraybackslash}m{9cm}
+        |>{\centering\arraybackslash}p{2cm}|}
+            \hline     
+            \centering \textbf{Chapter No.} & \centering\textbf{Chapter Name} &  \textbf{Page No.} \\
+            \hline
+            \the\rows
+        \end{tabular}
+    \end{table}%
+    
+    \vspace*{\stretch{1}}
+    \end{center}
+
+    \renewcommand{\rows}{{}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%                   Objective of the Chapter
+
+\newcommand{\objectives}[2]{ 
+    \newtoks \rows{}
+    \def \mycount{#1}
+    \def \conceptnames{#2}
+    \def \emptyrow{{}}
+
+    \foreach \i in {1,...,\inteval{\mycount+3}} {
+        \ifnum \i < \mycount
+            \pgfmathsetmacro \conceptname{{\conceptnames}[\i-1]}
+            \global\rows\expandafter{\expanded{\the\rows \i \expandafter &  \conceptname  \\} \hline}
+        \else
+            \ifnum \i = \mycount
+                \pgfmathsetmacro \conceptname{{\conceptnames}[\i-1]}
+                \global\rows\expandafter{\expanded{\the\rows \i \expandafter &  \conceptname  \\} \hline}
+            \else 
+                \global\rows\expandafter{\expanded{\the\rows \i \expandafter &  \emptyrow  \\} \hline}
+            \fi
+        \fi
+    }
+
+    \renewcommand{\arraystretch}{1.8}
+    \begin{longtable}{|>{\centering\arraybackslash}m{0.5cm}|m{17cm}|}
+        \multicolumn{2}{l}{\textbf{Objective of the chapter}} \\ \endhead
+        \hline%
+        \the\rows
+    \end{longtable}
+    
+    \renewcommand{\rows}{{}}
+    \smallskip%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%                       Empty Table Rows
+
+\newcommand{\emptytablerows}[2]{
+    \newtoks \rows{}
+    \def \mycount{#2}
+    \def \tableheading{#1}
+    \def \emptyrow{}
+
+    \foreach \i in {1,...,\mycount} {
+        \global\rows\expandafter{\expanded{\the\rows \i \expandafter &  \emptyrow  \\} \hline}
+    }
+
+    \renewcommand{\arraystretch}{1.8}
+    \begin{longtable}{|>{\centering\arraybackslash}m{0.5cm}|m{17cm}|}
+        \multicolumn{2}{l}{\textbf{\tableheading}} \\ \endhead
+        \hline%
+        \the\rows
+    \end{longtable}
+    
+    \renewcommand{\rows}{{}}
+    \smallskip%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%                       Chapter Duration Table
+
+\newcommand{\chapterduartion}[1]{
+    \newtoks \rows{}
+    \def \mycount{#1}
+    \def \emptyrow{}
+
+    \foreach \i in {1,...,\mycount} {
+        \global\rows\expandafter{\expanded{\the\rows \emptyrow \expandafter &  \emptyrow  \expandafter & \emptyrow \expandafter & \emptyrow \\} \hline}
+    }
+    
+    \renewcommand{\arraystretch}{2}
+    \begin{longtable}{|>{\centering\arraybackslash}m{4cm}|>{\centering\arraybackslash}m{4cm}|>{\centering\arraybackslash}m{4.5cm}|>{\centering\arraybackslash}m{4cm}|}
+        \multicolumn{4}{l}{\textbf{Chapter duration}} \\
+        \multicolumn{4}{r}{\textbf{Total periods required:\hspace{2cm}}} \\
+        \hline
+       \textbf{Teaching periods} & \textbf{Revision period} & \textbf{Worksheet discussion} & \textbf{Number of hours} \\
+       \hline
+       \the\rows
+    \end{longtable}
+
+    \renewcommand{\rows}{{}}
+    \smallskip%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%                   Activities involved table
+
+\newcommand{\activitiesinvolved}[1]{
+    \newtoks \rows{}
+    \def \mycount{#1}
+    \def \emptyrow{}
+
+    \foreach \i in {1,...,\mycount} {
+        \global\rows\expandafter{\expanded{\the\rows \emptyrow \expandafter &  \emptyrow  \expandafter & \emptyrow \\} \hline}
+    }
+    
+    \renewcommand{\arraystretch}{2}
+    \begin{longtable}{|>{\centering\arraybackslash}m{1.8cm}|>{\centering\arraybackslash}m{13.5cm}|>{\centering\arraybackslash}m{2cm}|}
+        \multicolumn{3}{l}{\textbf{Activities involved} \label{\chaptername - End}} \\
+        \hline
+        \textbf{Activity Number} & \textbf{Name of the activity} & \textbf{Timing}  \\
+        \hline
+        \the\rows
+    \end{longtable}
+
+    \renewcommand{\rows}{{}}
+    \smallskip%
+}
+
+\begin{document}%
+\normalsize%
+\pagestyle{firstpage}%
+\setlength{\headsep}{4cm}%
+\name{}{Math}{6}%
+
+\newpage%
+\pagestyle{bodypage6}%
+\setlength{\headsep}{3.2cm}%
+
+\indexpagetable
+    {2}
+    {
+        {"Knowing Our Numbers"},
+        {"Whole Numbers"}
+    }
+
+\newpage%
+\pagestyle{bodypage6}%
+\setlength{\headsep}{2.8cm}%
+
+\onehdrc{1.Knowing Our Numbers} \\%
+\objectives
+    {12}
+    {
+        {"Introduction on numbers"},
+        {"Comparing numbers"},
+        {"\qquad How many numbers can you make?"},
+        {"\qquad Ordering the Numbers"},
+        {"Shifting digits"},
+        {"Introducing 10,000"},
+        {"Revisiting place value"},
+        {"Introducing 100,000"},
+        {"Larger numbers"},
+        {"An aid in reading and writing large numbers"},
+        {"\qquad Use of commas"},
+        {"Large numbers in practice"}
+    }
+
+\emptytablerows{Chapter pre-requisites}{6}
+
+\emptytablerows{Complex concept/topic to teach and understand in this chapter}{5}
+
+\emptytablerows{Area/concepts where the students will make most mistakes}{5}
+
+\chapterduartion{1}
+
+\activitiesinvolved{3}
+
+\newpage%
+\setlength{\headsep}{2.8cm}%
+\onehdrc{2.Whole Numbers} \\%
+
+\objectives
+    {4}
+    {
+        {"Introduction on whole numbers"},
+        {"Predecessor and successor"},
+        {"Whole numbers"},
+        {"The number line"}
+    }
+
+\emptytablerows{Chapter pre-requisites}{6}
+
+\emptytablerows{Complex concept/topic to teach and understand in this chapter}{5}
+
+\emptytablerows{Area/concepts where the students will make most mistakes}{2}
+
+\chapterduartion{1}
+
+\activitiesinvolved{3}
+
+\end{document}

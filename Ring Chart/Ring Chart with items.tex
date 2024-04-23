@@ -1,0 +1,197 @@
+\documentclass[11pt, aspectratio=169]{beamer}
+\usepackage{graphicx} % To include graphics
+\usepackage{wheelchart}
+\usepackage{graphicx} 
+\usepackage{subcaption}
+\usepackage{arydshln}
+\usetikzlibrary{decorations.markings}
+%\usepackage[a4paper, landscape, margin=0.25in]{geometry}
+\usepackage{pgf-pie} % Load the pgf-pie package
+\usepackage{tikz} % Ensure TikZ is loaded
+
+% Main template 
+\setbeamertemplate{navigation symbols}{}    % Hiding the navigation symbols
+\definecolor{cellgreen}{rgb}{0.776,0.937,0.808}
+\definecolor{cellred}{rgb}{1,0.78,0.808}
+\definecolor{headingColor}{RGB}{127, 0, 255}
+\definecolor{white}{RGB}{255,255,255} % Define the white color
+
+
+\setbeamerfont{normal text}{size=\scriptsize}
+
+
+\setbeamercolor{footlinecolor}{
+    bg=headingColor,
+    fg=white
+}
+
+
+% #1 - Label
+% #2 - Input Percentage
+% #3 - Items Count
+% #4 - Items
+\newcommand{\mistakeAnalysis}[4]{
+
+    \def \percentvalue{#2}
+
+    \pgfmathsetmacro \valueofcm{{\percentvalue}[0]}
+    \pgfmathsetmacro \valueofci{{\percentvalue}[1]}
+    \pgfmathsetmacro \valueofca{{\percentvalue}[2]}
+    \pgfmathsetmacro \valueofcti{{\percentvalue}[3]}
+    \pgfmathsetmacro \valueofll{{\percentvalue}[4]}
+
+    \def \countOfItemGroup{#3}
+
+    \pgfmathsetmacro \countOfcm{{\countOfItemGroup}[0]}
+    \pgfmathsetmacro \countOfci{{\countOfItemGroup}[1]}
+    \pgfmathsetmacro \countOfcti{{\countOfItemGroup}[2]}
+    \pgfmathsetmacro \countOfll{{\countOfItemGroup}[3]}
+
+
+    \def \itemGroups{{#4}}
+    
+    \noindent
+    \begin{minipage}{0.5\linewidth}
+
+        \centering
+        \begin{tikzpicture}
+            \wheelchart[
+                data=\WCvarC: \WCperc,
+                lines={1/(0.5+abs(cos(\WCdataangle)))^1.1},
+                lines ext=0.5,
+                lines sep=-0.2,
+                lines style={
+                    postaction=decorate,
+                    decoration={
+                        markings,
+                        mark=at position 0 with {
+                            \fill (0,0) circle[radius=0.1];
+                        }
+                    }
+                },
+                perc precision=2,
+                radius={2}{2.5}
+            ]{%
+                \valueofcm/red/Careless Mistake,
+                \valueofci/orange/Concepts Issue,
+                \valueofca/green/Correct Answer,
+                \valueofcti/blue/Critical Thinking Issue,
+                \valueofll/yellow/Learn Later
+            }
+
+            % Add this line to insert content in the center
+            \node at (0,0) {#1}; 
+
+        \end{tikzpicture}
+
+    \end{minipage}%
+
+    \begin{minipage}{0.5\linewidth}
+
+        \centering
+        \begin{itemize}
+            \item \textbf{Concept Issue – \valueofci\%}
+
+            \begin{itemize}
+                \foreach \i in {0,...,\inteval{\countOfci-1}} {
+                    \pgfmathsetmacro{\singleItem}{\itemGroups[1][\i]}
+
+                    \item \singleItem
+                }
+            \end{itemize}
+
+        \end{itemize}
+    
+    
+    \end{minipage}
+
+    \vspace{1cm} % Space between the first and second half of the page
+
+    % Second half of the page: 3 equal minipages
+    \noindent
+    \begin{minipage}[t]{0.30\linewidth}
+
+        \centering
+        \begin{itemize}
+            \item \textbf{Careless Mistake – \valueofcm\%}
+
+            \begin{itemize}
+                \foreach \i in {0,...,\inteval{\countOfcm-1}} {
+                    \pgfmathsetmacro{\singleItem}{\itemGroups[0][\i]}
+
+                    \item \singleItem
+            }
+            \end{itemize}
+        \end{itemize}
+
+    \end{minipage}%
+    \begin{minipage}[t]{0.30\linewidth}
+
+        \centering
+        \begin{itemize}
+            \item \textbf{Correct Answer – \valueofca\%}
+
+            \begin{itemize}
+                \foreach \i in {0,...,\inteval{\countOfca-1}} {
+                    \pgfmathsetmacro{\singleItem}{\itemGroups[4][\i]}
+
+                    \item \singleItem
+                }
+            \end{itemize}
+        \end{itemize}
+    \end{minipage}
+
+    \begin{minipage}[t]{0.30\linewidth}
+
+        \centering
+        \begin{itemize}
+            \item \textbf{Learn Later – \valueofll\%}
+
+            \begin{itemize}
+                \foreach \i in {0,...,\inteval{\countOfll-1}} {
+                    \pgfmathsetmacro{\singleItem}{\itemGroups[3][\i]}
+
+                    \item \singleItem
+                }
+            \end{itemize}
+        \end{itemize}
+        
+    \end{minipage}%
+
+    \begin{minipage}[t]{0.30\linewidth}
+
+        \centering
+        \begin{itemize}
+            \item \textbf{Critical Thinking Issue – \valueofcti\%}
+
+            \begin{itemize}
+                \foreach \i in {0,...,\inteval{\countOfcti-1}} {
+                    \pgfmathsetmacro{\singleItem}{\itemGroups[2][\i]}
+
+                    \item \singleItem
+                }
+            \end{itemize}
+        \end{itemize}
+
+    \end{minipage}
+
+}
+
+
+
+
+\begin{document}
+\begin{frame}[shrink=55]{6th Math - Mistake Analysis}
+% First half of the page: 2 equal minipages
+\mistakeAnalysis
+    {6,Math}
+    {5.49,28.83,58.52,3.71,3.45}
+    {8,11,3,7}
+    {
+        {"Area of rectangle and square", "Comparison of numbers", "Counting numbers", "Equivalent fractions", "Factors and multiples", "Introduction on fractions", "Introduction on numbers", "Like and unlike fractions"},
+        {"Algebraic expressions", "Area of rectangle and square", "Classification of triangles", "Comparison of numbers", "Counting numbers", "Curve", "Equivalent fractions", "Even and odd numbers", "Factors and multiples", "Fractions on a number line", "HCF"},
+        {"Line segment, Line, Ray", "Operations on fractions", "Operations on whole numbers"},
+        {"Area of rectangle and square", "Classification of triangles", "Comparison of numbers", "Counting numbers", "Equivalent fractions", "Factors and multiples", "Fractions on a number line"}
+    }
+
+\end{frame}

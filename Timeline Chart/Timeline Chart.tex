@@ -1,0 +1,151 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{calc, calendar}
+\usepackage{pgfgantt}
+\geometry{top=1.8cm,bottom=1.5cm,left=0.5cm,right=0.5cm, a4paper}
+\usepackage{pgfcalendar}
+\usepackage[utf8]{inputenc}
+
+
+\newcommand{\ganttcharttable}[9]{
+    \newtoks \days
+
+    \days{}     % Initializing
+
+    \def \titledimension{#2} % Getting the height and width of the title
+    \pgfmathsetmacro \titleheight{{\titledimension}[0]}
+    \pgfmathsetmacro \titlewidth{{\titledimension}[1]}
+    
+    \def \startdate{#5}
+    \def \enddate{#6}
+    \def \leavecount{#8}
+
+    \def \leavedays{{#9}}
+
+    \def \fontset{\scriptsize} % Setting the title and label font size
+
+
+    %   Displaying the day names with color
+    \def\pgfcalendarweekdayletter##1{%
+        \fontset%        To change the weekday font size
+        \ifcase##1Mon \or Tue \or Wed \or Thr \or Fri \or Sat \or \textcolor{red}{Sun}\fi%
+    }
+
+    %  Using internal macros -- temporarily redefine the behavior.
+    \makeatletter
+    \ganttset{
+        conceptName/.code={ % Writing custom code
+            \pgfqkeysalso{/pgfgantt}{@conceptName={##1}} % Setting the custom values
+        },
+        @conceptName/.code args={##1}{
+            \pgfqkeysalso{/pgfgantt}{progress={100},progress label text={##1}}   % Make the progress to 100% for all tasks with labels
+        }
+    }
+    \makeatother    % Make it as a custom macro
+
+    % Getting Leave Days
+    \foreach \i in {0,...,\inteval{\leavecount - 1}} {
+        \pgfmathsetmacro \leaveday{\leavedays[\i][0]}
+        \pgfmathsetmacro \leavedayname{\leavedays[\i][1]}
+        \global\days\expandafter{%
+            \expanded{%
+                \the\days \noexpand\verticalrule{\leaveday}{\leavedayname}%
+            }%
+        }%
+    }
+
+
+    \begin{ganttchart}[
+        vgrid = {*{1}{gray!30, dashed}},    % Vertical grid style
+        % expand chart=0.5\textwidth, % Expanding the based on the paper
+        title height=#1, % Must be less than or eqaul to 1
+        title label font=\fontset,
+        bar height=#3, 
+        bar/.style={
+             fill=#4    % blue!60
+        },
+        x unit=\titlewidth mm,   % Width of the individual cells
+        y unit title=\titleheight mm, % Height of the individual cells
+        time slot format=little-endian,     % Defining the time format used
+        bar label node/.append style={
+            font=\fontset,
+        },
+        inline,     % For displaying the labels on the bars
+        bar inline label node/.style={
+            font=\tiny,
+            color=white,
+        },
+        progress label text={},     % Dummy space for setting the concept names
+        bar progress label font=\fontset,   % Changing progress bar label font size
+        labelposLeft/.style={
+            bar progress label node/.append style={
+                anchor=west, 
+                left=4pt
+            }, 
+            bar progress label anchor=west,
+        },   % Adjusting the label position of the right most labels
+        vrule/.append style={red!30, thin},
+        vrule label node/.style={
+            anchor=north,
+            font=\fontset,
+            rotate=90,
+            xshift=-16,
+            yshift=-2
+        }
+    ]{\startdate}{\enddate}
+        \gantttitlecalendar{
+            month=name,
+            day,
+            weekday=letter,
+        } \\
+        
+       #7
+       \the\days
+    \end{ganttchart}
+    
+    \renewcommand{\days}{{ }}
+}
+
+\newcommand{\verticalrule}[2]{
+    \ganttvrule{}{#1}
+    \ganttvrule[vrule offset=-0.001]{#2}{#1}
+}
+
+\begin{document}
+
+%   #1 -- Height of the titles <= 1
+%   #2 -- Height and Width of the individual cells in mm
+%   #3 -- Height of the bars
+%   #4 -- Color of the bars
+%   #5 -- Plan start date in the format like DD.MM.YYYY
+%   #6 -- Plan end date in the format like DD.MM.YYYY
+%   #7 -- concept name, no.of days, start date and end date
+%   #8 -- Leave Day Count including Sundays
+%   #9 -- Leave Days
+
+
+\ganttcharttable
+    {0.9}
+    {8,6}
+    {0.5}
+    {blue!60}
+    {11.4.2024}
+    {11.5.2024}
+    {
+        \ganttbar[conceptName=Knowing on numbers]{1 Day}{11.4.2024}{11.4.2024} \\
+        \ganttbar[conceptName=Algebric Expressions]{6 Days}{13.4.2024}{18.4.2024} \\
+        \ganttbar[conceptName=Operation on numbers]{3 Days}{19.4.2024}{21.4.2024} \\
+        \ganttbar[conceptName=Operation on decimals]{3 Days}{22.4.2024}{24.4.2024} \\ 
+        \ganttbar[conceptName=Area and Perimeter]{5 Days}{25.4.2024}{29.4.2024} \\
+        \ganttbar[conceptName=Triangles, labelposLeft]{6 Days}{30.4.2024}{5.5.2024}
+        \ganttbar[]{4 Days}{8.5.2024}{11.5.2024}
+    }
+    {2}
+    {
+        {"20.4.2024", "Leave"},
+        {"10.5.2024", "Holiday"}
+    }
+
+
+\end{document}

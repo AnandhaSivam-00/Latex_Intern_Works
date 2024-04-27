@@ -29,7 +29,7 @@
 
 %               Setting School Name
 
-\def \schoolname{Little Flower School}
+\def \schoolname{Little School}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -41,11 +41,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\hdr}[3]{
+        \begin{center}%
+        \begin{Large}%
+        {\textbf{#1}} \\ \medskip%
+        {\textbf{#2}} \\ \medskip%
+        {\textbf{#3}}% 
+        \end{Large}%
+        \end{center}%
+}%
 \newcommand{\firsthdr}[1]{
         \begin{center}
             {
             \LARGE
-            \textbf{\textit{Little Thinker - Annual Chapter Planner}}\\
+            \textbf{\textit{Little School - Annual Chapter Planner}}\\
             \rule{300pt}{1pt}}\\
             \large\textbf{#1}
             \end{center}
@@ -96,8 +105,8 @@
     \fancyhead{ }
     \fancyfoot{ }
     \fancyhead[L]{
-        \includegraphics[width=3.2cm]{img/logo.png}\\
-        www.learnbasics.fun
+        \includegraphics[width=2.5cm]{example-image}\\
+        Example - Image
         \vspace{-0.8cm}
     }
     \fancyhead[C]{
@@ -139,8 +148,8 @@
             \schoolname %
         }%
         \fancyhead[L]{%
-            \includegraphics[width=3.2cm]{img/logo.png}\\
-            www.learnbasics.fun 
+            \includegraphics[width=2.5cm]{example-image}\\
+            Example - Image 
             \vspace*{0.2cm}
         }%
         \fancyhead[C]{%
@@ -175,8 +184,6 @@
     }
 
     \begin{center}
-    \vspace*{\stretch{1}}
-    
     \begin{table}[H]
         \centering
         \renewcommand{\arraystretch}{2}
@@ -190,8 +197,6 @@
             \the\rows
         \end{tabular}
     \end{table}%
-    
-    \vspace*{\stretch{1}}
     \end{center}
 
     \renewcommand{\rows}{{}}
@@ -314,11 +319,12 @@
 \normalsize%
 \pagestyle{firstpage}%
 \setlength{\headsep}{4cm}%
+% \firsthdr{PGP International School}%
 \name{}{Math}{6}%
 
 \newpage%
 \pagestyle{bodypage6}%
-\setlength{\headsep}{3.2cm}%
+\setlength{\headsep}{2.8cm}%
 
 \indexpagetable
     {2}

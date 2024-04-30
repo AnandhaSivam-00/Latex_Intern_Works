@@ -1,0 +1,160 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{geometry}
+\geometry{top=2cm,bottom=2.5cm,left=0.5cm,right=0.5cm}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\def \schoolname{ABC School }
+
+% #1 -- Heading name
+% #2 -- Class
+
+\newcommand{\headerthreelinesleft}[2]{
+  \fancypagestyle{pagehf}{
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhead{ }
+    \fancyfoot{ }
+
+    \fancyfoot[L]{\textcolor{black}{Learn Basics}}%
+    \fancyfoot[C]{\textcolor{black}{\thepage}}%
+    \fancyfoot[R]{\textcolor{black}{Class #2 | \schoolname}}%
+    
+    \fancyhead[L]{%
+        \includegraphics[width=2.5cm]{img/logo.png}\\%
+        www.learnbasics.fun \\% % After this one space is needed
+    }
+    \fancyhead[C]{%
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{@{}|l}
+            \huge{\textbf{\schoolname}} \\
+            \Large{#1} \\
+            \large{Class - #2}%
+        \end{tabular} \smallskip%
+        %\hspace*{6cm}%
+    }%
+
+     \fancyhead[R]{}
+
+    \renewcommand{\headrulewidth}{1.2pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \renewcommand{\headrule}{\color{blue!70}\hrulefill}
+    \renewcommand{\footrule}{\color{blue!70}\hrulefill}
+    
+  }
+  \pagestyle{pagehf}
+  \vspace*{1cm}
+}
+
+% #1 -- Heading name
+% #2 -- Class
+
+\newcommand{\headerthreelinescenter}[2]{
+  \fancypagestyle{pagehf}{
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhead{ }
+    \fancyfoot{ }
+
+    \fancyfoot[L]{\textcolor{black}{Learn Basics}}%
+    \fancyfoot[C]{\textcolor{black}{\thepage}}%
+    \fancyfoot[R]{\textcolor{black}{Class #2 | \schoolname}}%
+    
+    \fancyhead[L]{%
+        \includegraphics[width=2.5cm]{img/logo.png}\\%
+        www.learnbasics.fun \\% % After this one space is needed
+    }
+    \fancyhead[C]{%
+        \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{@{}c}
+            \huge{\textbf{\schoolname}} \\
+            \Large{#1} \\
+            \large{Class - #2}%
+        \end{tabular} \smallskip%
+        %\hspace*{6cm}%
+    }%
+
+     \fancyhead[R]{}
+
+    \renewcommand{\headrulewidth}{1.2pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \renewcommand{\headrule}{\color{blue!70}\hrulefill}
+    \renewcommand{\footrule}{\color{blue!70}\hrulefill}
+    
+  }
+  \pagestyle{pagehf}
+  \vspace*{1cm}
+}
+
+% #1 -- Class
+% #2 -- Subject
+% #3 -- Teacher name
+% #4 -- Chapter name
+
+\newcommand{\headerthreelinesdiff}[4]{
+    \fancypagestyle{pagehf}{%
+        \renewcommand{\headrulewidth}{0pt}%
+        \renewcommand{\footrulewidth}{0pt}%
+        \fancyhead{%
+        }%
+        \fancyfoot{%
+        }%
+        \renewcommand{\footrulewidth}{1pt}%
+        \fancyfoot[L]{%
+            \vspace{0.5cm}%
+            \textcolor{black}{Learn Basics}%
+        }%
+        \fancyfoot[C]{%
+            \vspace{0.5cm}%
+            \textcolor{black}{\thepage}%
+        }%
+        \fancyfoot[R]{%
+            \vspace{0.5cm}%
+            \textcolor{black}{#3 | #2 {-} DCP}%
+        }%
+        \fancyhead[L]{%
+            \includegraphics[width=2.5cm]{img/logo.png}\\%
+            www.learnbasics.fun \\ \vspace{1.2cm}
+        }%
+        \fancyhead[C]{%
+            \Large \textbf{\schoolname - Learn Basics}\\%
+            \vspace{0.2cm}%
+            \Large \textbf{#2 Daily Chapter Planner}\\%
+            \normalsize \rule{480pt}{1pt} Class #1\\%
+            \Large\textbf{#4} \\%
+        }%
+
+        \renewcommand{\headrule}{}
+        \renewcommand{\footrule}{\hrulefill}
+        \renewcommand{\headrulewidth}{0pt}
+        \renewcommand{\footrulewidth}{1.2pt}
+    }%
+    \pagestyle{pagehf}
+    \vspace*{1cm}
+}
+
+\begin{document}
+
+\headerthreelinescenter{Header and Footer Styling - With large text happened}{7 A}
+\setlength{\headsep}{2cm}
+
+\lipsum[6]
+
+\newpage
+\headerthreelinesleft{Header and Footer Styling - With large text happened}{7 A}
+\setlength{\headsep}{2cm}
+
+\lipsum[6]
+
+\newpage
+\headerthreelinesdiff{6}{Math}{Mr.Teacher}{1. Knowing Our Numbers}
+\lipsum[6]
+
+\end{document}

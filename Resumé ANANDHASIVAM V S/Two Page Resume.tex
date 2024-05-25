@@ -1,0 +1,268 @@
+\documentclass[11pt, a4paper]{article}
+\input{Templates/Preambles}
+\input{Templates/Section Templates}
+
+
+\begin{document}
+    \pagestyle{headerName} % Header Decoration
+
+    \vspace*{0cm}
+
+    % For leftside color box and contents
+    \adjustbox{valign=t}{\begin{minipage}{0.4\textwidth}
+        \begin{tcolorbox}[
+            height=0.98\textheight,     % Height of the colorbox
+            grow to left by=0.3cm,      % Width starts from leftside
+            colback=graybox,    % Background color of the colorbox
+            colframe=graybox,   % Border color of the colorbox
+            arc=0mm     % Corner radius
+        ]
+           \sections{CONTACT}   % Section name with format
+
+            % #1 -- Email Id
+           \EmailID{anandsugan218@gmail.com}    
+
+           % #1 -- Website URL
+           % #2 -- Appear text for the link
+           \LinkedIn
+                {http://www.linkedin.com/in/anandhasivam-sambathkumar-052629224}
+                {Anandhasivam-Sambathkumar}
+
+           \GitHub
+                {http://github.com/AnandhaSivam-00}
+                {github.com/AnandhaSivam-00}
+
+            % #1 -- Phone Number
+           \phoneNo{+91 6383499910}
+
+            % #1 -- Door no and Street name or an colony name
+            % #2 -- Village name
+            % #3 -- Taluk and District names
+            % #4 -- State and Country names
+           \address
+                {3/112, Aathikkadu}
+                {Savakkattupalayam(PO)}
+                {Avinashi(TK), Tiruppur - 638 460}
+                {Tamilnadu, India}
+
+           \par\noindent\dotfill % For dotted line spread over the width
+           \vspace*{-0.2cm}
+           
+           \sections{EDUCATION}
+
+            % #1 -- Course Name
+            % #2 -- School or College name
+            % #3 -- Batch
+            % #4 -- Percentage or CGPA
+            % #5 -- Value
+           \education
+                {B.E - Computer Science and Engineering}
+                {K S Rangasamy College of Technology, \\ Tiruchengode}
+                {2021 - 2025}
+                {CGPA}
+                {8.88}
+           \education
+                {HSC}
+                {Kumutha Matriculation and Higher Secondary School, Nambiyur}
+                {2020 - 2021}
+                {Percentage}
+                {90.17\%}
+           \education
+                {SSLC}
+                {Government Higher Secoundary School, Savakkattupalayam}
+                {2018 - 2019}
+                {Percentage}
+                {88.2\%}
+
+           \vspace*{-0.7cm}
+           \par\noindent\dotfill
+           \vspace*{-0.2cm}
+
+           \sections{AREA OF INTEREST}
+
+            % #1 -- Number of interests
+            % #2 -- Interest names enclosed with curly brackets and quotations and separated with comma
+            % #3 -- Bulletin style number
+           \areaOfInterest
+                {4}
+                {{"Data Analytics"},{"Data Visualization"},{"Web Development"},{"Testing"}}
+                {71}
+
+           \par\noindent\dotfill
+           \vspace*{-0.2cm}
+
+           \sections{LANGUAGES KNOWN}
+           \vspace*{0.2cm}
+
+           % #1 -- Language name
+           % #2 -- Percentage
+           \languages{Tamil}{90}
+           \languages{English}{60}
+           \languages{Kannada}{40}
+        \end{tcolorbox}
+    \end{minipage}}
+    \adjustbox{valign=t}{\begin{minipage}{0.5\textwidth}    % For rightside area of the page
+        \begin{tcolorbox}[
+            height=0.982\textheight, 
+            grow to right by=1.5cm, 
+            colback=white,
+            colframe=white,
+            arc=0mm
+        ]
+            \vspace*{-0.01cm}
+            \sections{CAREER OBJECTIVE}
+            \vspace*{-0.05cm}
+
+            % #1 -- Para
+            \objective{Passionate and motivated student with a strong desire to gain hands-on experience in the industry. I aspire to expand my knowledge, develop a professional network, and gain practical insights. I can use my skills and efforts to contribute to the success of the organization.}
+
+           \par\noindent\dotfill
+           \vspace*{-0.2cm}
+
+           \sections{WORK EXPERIENCE}
+           \vspace*{-0.1cm}
+
+           % #1 -- Role name
+           % #2 -- Company name
+           % #3 -- Duaration
+           % #4 -- Company Website link
+           % #5 -- Responsibilities
+           % #6 -- Work Repository link
+           \workex
+                {Data Analytics Intern}
+                {Learn Basics}
+                {Jan 2024 - Present}
+                {https://learnbasics.fun/}
+                {\small
+                    \begin{itemize}[itemsep=0.007cm,leftmargin=*]
+                        \item[-] Responsibility one
+                        \item[-] Responsibility two
+                        \item[-] Responsibility tree
+                    \end{itemize}
+                }
+                {https://latex-tutorial.com/bullet-styles/}
+            
+           \par\noindent\dotfill
+           \vspace*{-0.2cm}
+            
+            \sections{AWARDS \& ACHIEVEMENTS}
+            \vspace*{-0.2cm}
+            \begin{itemize}[itemsep=0.007cm,leftmargin=*]
+                \item Secured the 2nd position in “Code Astra 2022” conducted by IIT Bombay.
+                \item Participated in the “Innovate India Coding Championship 2022” and selected for 2nd round.
+                \item Completed an internship on “Full Stack Web Development in MERN” at WSA and developed an ‘Food Ordering Website’.
+                \item Completed an internship on “Internet of Things (IoT)” at Emertxe Information Technology and developed an ‘Home Automation System’ using PICSimLab software.  
+                \item Completed “Databases and SQL for Data Science using Python” in Coursera.
+                \item Completed “Acquiring Data” with a gold category certificate in NASSCOM.
+                \item Completed “Programming in Java” with an Elite + Silver certificate in NPTEL.
+                \item Participated in a symposium on “Edge Computing” in Karpagam College of Engineering, Coimbatore.
+            \end{itemize}
+
+        \end{tcolorbox}
+    \end{minipage}}
+
+    \newpage
+    \pagestyle{headerOnly} % For second page header
+
+    \adjustbox{valign=t}{\begin{tcolorbox}[
+            grow to left by=0.3cm,
+            height=0.33\textheight, 
+            width=0.97\textwidth,   % Width of the colorbox
+            colframe=graybox,
+            colback=graybox,
+            arc=0mm
+        ]
+
+        \sections{SKILL SETS}
+        \vspace*{-0.2cm}
+        \footnotesize   % Changing the font size
+
+        % #1 -- Skill section name
+        % #2 -- Count of skill groups
+        % #3 -- Skill names Array - enclosed with curly brackets and quotations and separated by comma....
+        % Note: Three individual skills are one group
+        % #4 -- Percentages
+        \vizskills
+            {Programming Language}
+            {2}
+            {
+                {{"Java"},{"Python"},{"LaTeX"}},
+                {{"C"},{"HTML5"},{"CSS"}}
+            }
+            {
+                {88,70,90},
+                {55,85,75}
+            }
+
+        \vizskills
+            {Query Language}
+            {1}
+            {
+                {{"SQL"},{"Postgre SQL"},{"0"}}
+            }
+            {
+                {75,70,0}
+            }
+
+        \vizskills
+            {Others}
+            {2}
+            {
+                {{"Spreadsheets"},{"PowerBI"},{"Metabase"}},
+                {{"PowerPoint"},{"MS Word"},{"Canva"}}
+            }
+            {
+                {85,60,50},
+                {80,65,90}
+            }
+    \end{tcolorbox}}
+
+    \vspace*{0.1cm}
+
+    \sections{MINIPROJECTS}
+    
+    \small  % Changing font size
+
+    \nohyphens{
+    % For Miniprojects
+    \begin{itemize}[itemsep=0.007cm]
+        \item Developed React and Node.js based food ordering website.
+        \item Designed dashboards using PowerBI for analyzing the US Super Market sales and college Code-A-Thon student participation.
+        \item Developed Java Swing based simple password manager to store the user passwords in the MySQL database. 
+        \item Implemented array objects to store and simulate the some bank operations.
+    \end{itemize}}
+
+    \par\noindent\dotfill
+    \vspace*{-0.2cm}
+
+    \sections{PERSONAL DETAILS}
+    \setstretch{1.35}
+    
+    \small  % changing font size
+    \begin{adjustwidth}{1cm}{}  % Giving a indentation for whole para
+       \small
+       \textbf{Date of Birth :} 30.10.2003 \\
+       \textbf{Age :} 20 \\
+       \textbf{Sex :} Male \\
+       \textbf{Father’s Name :} Sambath Kumar V \\
+       \textbf{Hobbies :} Drawing, Photography, Tennis, Gardening \\
+    \end{adjustwidth}
+    % {adjustwidth}{left margin width}{right margin width}
+
+    \par\noindent\dotfill
+    \vspace*{-0.2cm}
+
+    \sections{DECLARATION}
+
+    \begin{adjustwidth}{1cm}{}
+        \small
+        I hereby declare that the above-mentioned information is correct up to my knowledge and I 
+bear the responsibility for the correctness of the above-mentioned particulars.
+    \end{adjustwidth}
+
+    \RaggedLeft{
+        \includegraphics[width=6cm, height=1.2cm]{Images/Signature.jpg}\\ \smallskip
+        \so{SIGNATURE}
+    }
+    
+\end{document}
